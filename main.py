@@ -15,27 +15,39 @@ def main():
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-
     running = True
     dt = 0
 
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+
+
+    # Create player AFTER setting containers
+    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+
     while running:
+        # Handle events
         for event in pygame.event.get():
-
-            screen.fill("black")
-
-            player.update(dt)
-
-            player.draw(screen)
-
-            pygame.display.flip()
-
-            deltaTime = clock.tick(60)
-            dt = deltaTime / 1000
-
             if event.type == pygame.QUIT:
                 running = False
+
+        # Game logic (outside event loop!)
+        screen.fill("black")
+
+        # Update all sprites
+        for sprite in updatable:
+                sprite.update(dt)
+
+        # Draw all sprites
+        for sprite in drawable:
+            sprite.draw(screen)
+
+        pygame.display.flip()
+
+        deltaTime = clock.tick(60)
+        dt = deltaTime / 1000
 
 
 
