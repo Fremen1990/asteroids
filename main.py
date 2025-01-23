@@ -53,7 +53,7 @@ def main():
 
         # Add collision detection
         for asteroid in asteroids:
-            if astedroid.collision(player):
+            if asteroid.collision(player):
                 print("Game over!")
                 sys.exit()
 
@@ -63,7 +63,7 @@ def main():
         for asteroid in asteroids:
             for shot in shots:
                 if shot.collision(asteroid):
-                    asteroid.kill()
+                    asteroid.splitw()
                     shot.kill()
 
 
