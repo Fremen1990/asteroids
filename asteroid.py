@@ -1,5 +1,7 @@
 import random
 
+from asteroids.constants import BIG_ASTEROID_SCORE
+from constants import SMALL_ASTEROID_SCORE
 from constants import ASTEROID_MIN_RADIUS
 from circleshape import CircleShape
 
@@ -19,7 +21,7 @@ class Asteroid(CircleShape):
         self.kill()
 
         if self.radius <= ASTEROID_MIN_RADIUS:
-            return
+            return SMALL_ASTEROID_SCORE
         else:
             random_angle = random.uniform(20,50)
             new_vector1 = self.velocity.rotate(random_angle)
@@ -30,3 +32,5 @@ class Asteroid(CircleShape):
 
             new_asteroid_1.velocity = new_vector1 * 1.2
             new_asteroid_2.velocity = new_vector2
+
+            return BIG_ASTEROID_SCORE

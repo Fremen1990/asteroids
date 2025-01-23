@@ -6,6 +6,8 @@ from asteroidfield import AsteroidField
 from player import Player
 from asteroid import Asteroid
 
+from score import Score
+
 from constants import *
 
 def main():
@@ -32,6 +34,8 @@ def main():
 
     AsteroidField.containers = (updatable,)
 
+    # Create score
+    score = Score()
 
     # Create player AFTER setting containers
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, shots)
@@ -63,9 +67,9 @@ def main():
         for asteroid in asteroids:
             for shot in shots:
                 if shot.collision(asteroid):
-                    asteroid.splitw()
+                    score_for_asteroid_hit = asteroid.split()
+                    score.increment(score_for_asteroid_hit)
                     shot.kill()
-
 
         # Draw all sprites
         for sprite in drawable:
@@ -73,6 +77,8 @@ def main():
 
         for shot in shots:
             shot.draw(screen)
+
+        score.draw(screen)
 
         pygame.display.flip()
 
