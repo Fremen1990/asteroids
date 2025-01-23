@@ -53,12 +53,19 @@ def main():
 
         # Add collision detection
         for asteroid in asteroids:
-            if asteroid.collision(player):
+            if astedroid.collision(player):
                 print("Game over!")
                 sys.exit()
 
         for shot in shots:
             shot.update(dt)
+
+        for asteroid in asteroids:
+            for shot in shots:
+                if shot.collision(asteroid):
+                    asteroid.kill()
+                    shot.kill()
+
 
         # Draw all sprites
         for sprite in drawable:
