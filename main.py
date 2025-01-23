@@ -7,6 +7,8 @@ from player import Player
 from asteroid import Asteroid
 
 from score import Score
+from lives import Lives
+from game_over import GameOver
 
 from constants import *
 
@@ -37,6 +39,12 @@ def main():
     # Create score
     score = Score()
 
+    # Create lives
+    lives = Lives(initial_lives=PLAYER_LIVES)
+
+    # Create game over screen
+    game_over_screen = GameOver()
+
     # Create player AFTER setting containers
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, shots)
     # Create asteroid field
@@ -58,8 +66,16 @@ def main():
         # Add collision detection
         for asteroid in asteroids:
             if asteroid.collision(player):
-                print("Game over!")
-                sys.exit()
+                if not player.is_invulnerable:
+                    lives.decrement()
+                    player.lose_life()
+
+                    if lives.lives <= 0:
+                        game_over_screen.display(screen)
+                        pygame.quit()
+                        sys.exit()
+                        # running = False
+                        # print("Game over!")
 
         for shot in shots:
             shot.update(dt)
@@ -79,6 +95,7 @@ def main():
             shot.draw(screen)
 
         score.draw(screen)
+        lives.draw(screen)
 
         pygame.display.flip()
 
