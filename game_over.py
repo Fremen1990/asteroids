@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 from asteroids.constants import GAME_OVER_FONT_SIZE, GAME_OVER_COLOR
@@ -11,13 +13,24 @@ class GameOver:
 
     def display(self, screen):
         font = pygame.font.Font(None, self.font_size)
+
         text = font.render(self.message, True, self.color)
         text_rect = text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT /2))
 
-        screen.fill("black")
-        screen.blit(text, text_rect)
-        pygame.display.flip()
+        # Press "R" to restart
+        subtext = font.render("Press R to Restart", True, (255,255,255))
+        subtext_rect = subtext.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 100))
 
-        pygame.time.wait(3000)
+        while True:
+            screen.fill("black")
+            screen.blit(text, text_rect)
+            screen.blit(subtext, subtext_rect)
+            pygame.display.flip()
 
-        # TODO implement - Restart functionality
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_r:
+                        return
