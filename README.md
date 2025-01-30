@@ -1,4 +1,13 @@
-## Asteroid Game in Python 🐍
+## Asteroid Game 🌌
+
+----
+
+### - Original game in Python 🐍 
+### - Then rewritten to React ⚛️ + TypeScript & PhaserJS
+### - Then implemented on React Native 📱
+### - Then extended with ThreeJS
+
+----
 
 Extending project with below ideas:
 
