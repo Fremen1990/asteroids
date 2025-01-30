@@ -2,8 +2,7 @@ import sys
 
 import pygame
 
-from asteroids.constants import GAME_OVER_FONT_SIZE, GAME_OVER_COLOR
-from constants import SCREEN_HEIGHT, SCREEN_WIDTH, GAME_OVER_MESSAGE
+from constants import GAME_OVER_FONT_SIZE, GAME_OVER_COLOR, SCREEN_HEIGHT, SCREEN_WIDTH, GAME_OVER_MESSAGE
 
 class GameOver:
     def __init__(self, message=GAME_OVER_MESSAGE, font_size=GAME_OVER_FONT_SIZE, color=GAME_OVER_COLOR):

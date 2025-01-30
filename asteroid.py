@@ -1,22 +1,21 @@
 import random
 
-from asteroids.constants import BIG_ASTEROID_SCORE
-from constants import SMALL_ASTEROID_SCORE
-from constants import ASTEROID_MIN_RADIUS
+from constants import BIG_ASTEROID_SCORE, SMALL_ASTEROID_SCORE, ASTEROID_MIN_RADIUS
 from circleshape import CircleShape
 from explosion import Explosion
 
 import pygame
 
+
 class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
-        super().__init__(x,y,radius)
+        super().__init__(x, y, radius)
 
     def draw(self, screen):
-        pygame.draw.circle(screen, "green",self.position, self.radius, 2)
+        pygame.draw.circle(screen, "green", self.position, self.radius, 2)
 
     def update(self, dt):
-        self.position  += (self.velocity * dt)
+        self.position += (self.velocity * dt)
 
     def split(self):
         explosion = Explosion(self.position.x, self.position.y, self.radius)
@@ -28,7 +27,7 @@ class Asteroid(CircleShape):
         if self.radius <= ASTEROID_MIN_RADIUS:
             return SMALL_ASTEROID_SCORE
         else:
-            random_angle = random.uniform(20,50)
+            random_angle = random.uniform(20, 50)
             new_vector1 = self.velocity.rotate(random_angle)
             new_vector2 = self.velocity.rotate(-random_angle)
             new_radius = self.radius - ASTEROID_MIN_RADIUS
